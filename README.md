@@ -1,3 +1,2 @@
-# Proyecto NGINX con HAProxy
 
 
