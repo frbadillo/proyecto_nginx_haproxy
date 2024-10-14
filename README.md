@@ -24,6 +24,28 @@ proyecto_nginx_haproxy/
         └── index.html
 ```
 
+```mermaid
+graph TD
+    A[proyecto_nginx_haproxy]
+    A --> B[docker-compose.yml]
+    A --> C[haproxy.cfg]
+    A --> D[nginx-lb.conf]
+    A --> E[nginx]
+    E --> F[nginx1.conf]
+    E --> G[nginx2.conf]
+    E --> H[nginx3.conf]
+    E --> I[nginx4.conf]
+    A --> J[www]
+    J --> K[www1]
+    K --> L[index.html]
+    J --> M[www2]
+    M --> N[index.html]
+    J --> O[www3]
+    O --> P[index.html]
+    J --> Q[www4]
+    Q --> R[index.html]
+```
+
 ## Componentes
 
 - **Nginx Load Balancer**: Distribuye el tráfico entre las instancias de HAProxy.
