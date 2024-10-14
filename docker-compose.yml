@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+  haproxy1:
+    image: haproxy:latest
+    ports:
+      - "8081:80"
+      - "8404:8404"
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    depends_on:
+      - nginx1
+      - nginx2
+      - nginx3
+      - nginx4
+
+  haproxy2:
+    image: haproxy:latest
+    ports:
+      - "8082:80"
+      - "8405:8404"
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    depends_on:
+      - nginx1
+      - nginx2
+      - nginx3
+      - nginx4
+
+  nginx1:
+    image: nginx:latest
+    volumes:
+      - ./nginx/nginx1.conf:/etc/nginx/nginx.conf:ro
+      - ./www/www1:/usr/share/nginx/html:ro
+
+  nginx2:
+    image: nginx:latest
+    volumes:
+      - ./nginx/nginx2.conf:/etc/nginx/nginx.conf:ro
+      - ./www/www2:/usr/share/nginx/html:ro
+
+  nginx3:
+    image: nginx:latest
+    volumes:
+      - ./nginx/nginx3.conf:/etc/nginx/nginx.conf:ro
+      - ./www/www3:/usr/share/nginx/html:ro
+
+  nginx4:
+    image: nginx:latest
+    volumes:
+      - ./nginx/nginx4.conf:/etc/nginx/nginx.conf:ro
+      - ./www/www4:/usr/share/nginx/html:ro
+
+  nginx-lb:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx-lb.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - haproxy1
+      - haproxy2
